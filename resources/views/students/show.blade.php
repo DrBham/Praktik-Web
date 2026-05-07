@@ -58,6 +58,13 @@
                    class="bg-yellow-500 border border-yellow-500 text-white px-3 py-2 flex items-center gap-2 cursor-pointer">
                     <span>Edit</span>
                 </a>
+                 {{-- tombol analisis --}}
+                <form action="{{ route('students.analyze', $student->id) }}" method="GET" class="inline">
+                    <button type="submit"
+                        class="bg-blue-600 border border-blue-600 text-white px-3 py-2 flex items-center gap-2 hover:bg-blue-700">
+                        <span>Lihat Analisis</span>
+                    </button>
+                </form>
             </div>
 
         </div>

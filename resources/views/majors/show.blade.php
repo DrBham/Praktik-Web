@@ -14,5 +14,14 @@
             <a href="{{ route('majors.index') }}" class="border border-zinc-300 px-4 py-2 text-sm">Back</a>
             <a href="{{ route('majors.edit', $major->id) }}" class="bg-yellow-500 text-white px-4 py-2 text-sm">Edit Data</a>
         </div>
+         {{-- tombol analisis --}}
+            <form action="{{ route('majors.insights', $major->id) }}" method="POST" class="inline">
+                @csrf
+                <button type="submit"
+                    class="bg-indigo-600 text-white px-4 py-2 text-sm hover:bg-indigo-700">
+                    Lihat Insight
+                </button>
+            </form>
     </div>
 </x-default-layout>
+

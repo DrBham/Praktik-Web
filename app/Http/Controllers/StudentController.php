@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Ai\Agents\AgenKuliah;
 use App\Models\Student;
 use App\Models\Majors;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Ai\Facades\AI;
 
 class StudentController extends Controller
 {
@@ -127,5 +129,32 @@ class StudentController extends Controller
         $student->delete();
 
         return redirect()->route('students.index')->with('success', 'Student deleted successfully!');
+    }
+
+    // 8. Analisis Karir dengan Agent AI
+    public function analyzeCareer(string $id)
+    {
+        // Mengambil data mahasiswa beserta relasi jurusannya
+        $student = Student::with('majors')->findOrFail($id);
+
+        try {
+            // Memanggil Agent AI untuk memberikan analisis
+            $response = AI::agent(AgenKuliah::class)
+                ->prompt(
+                    "Berikan analisis terkait peluang karir " .
+                    "dan saran akademik untuk mahasiswa bernama " .
+                    "{$student->name} dari jurusan {$student->majors->name}. " .
+                    "tidak perlu berikan pertanyaan lain, hanya berikan " .
+                    "analisis berdasarkan data yang saya berikan."
+                );
+        } catch (\Exception $e) {
+            $response = "Gagal mengambil analisis AI. Error: " . $e->getMessage();
+        }
+
+        // Mengirimkan hasil ke view
+        return view('students.analysis', [
+            'student' => $student,
+            'analysis' => $response
+        ]);
     }
 }

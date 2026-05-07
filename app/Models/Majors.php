@@ -9,7 +9,7 @@ class Majors extends Model
 {
     protected $fillable = ['name', 'code'];
 
-    public function student(): HasMany
+    public function students(): HasMany
     {
         return $this->hasMany(Student::class, 'major_id');
     }

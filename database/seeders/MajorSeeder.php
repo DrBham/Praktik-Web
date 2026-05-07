@@ -17,12 +17,10 @@ class MajorSeeder extends Seeder
             [
                 'name' => 'S1 Teknik Informatika',
                 'code' => '0001',
-                'description' => 'Prodi yang mempelajari ilmu tentang Teknik Informatika',
             ],
             [
                 'name' => 'S1 Sistem Informasi',
                 'code' => '0002',
-                'description' => 'Prodi yang mempelajari ilmu tentang Sistem Informasi',
             ]
         ]);
     }
