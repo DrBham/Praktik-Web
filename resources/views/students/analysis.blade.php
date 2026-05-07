@@ -1,7 +1,5 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container mx-auto py-8 px-4">
+<x-default-layout title="AI Career Analysis" section_title="Student Analysis">
+    <div class="container mx-auto py-8 px-4">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         <!-- Student Profile Card -->
@@ -68,4 +66,4 @@
         </a>
     </div>
 </div>
-@endsection
+</x-default-layout>

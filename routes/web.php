@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/students/{id}', [StudentController::class, 'destroy'])->name('students.destroy');
     Route::put('/students/{id}', [StudentController::class, 'update'])->name('students.update');
     Route::delete('/students/{id}', [StudentController::class, 'destroy'])->name('students.destroy');
-    Route::get('/students/{id}/analyze', [StudentController::class, 'analyzeCareer'])->name('students.analyze');
+    Route::match(['get', 'post'], '/students/{id}/analyze', [StudentController::class, 'analyzeCareer'])->name('students.analyze');
 
     Route::get('/majors', [MajorController::class, 'index'])->name('majors.index');
     Route::get('/majors/create', [MajorController::class, 'create'])->name('majors.create');
@@ -39,5 +39,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/majors/{id}/edit', [MajorController::class, 'edit'])->name('majors.edit');
     Route::put('/majors/{id}', [MajorController::class, 'update'])->name('majors.update');
     Route::delete('/majors/{id}', [MajorController::class, 'destroy'])->name('majors.destroy');
-    Route::get('/majors/{id}/insight', [MajorController::class, 'majorInsights'])->name('majors.insight');
+    Route::post('/majors/{id}/insight', [MajorController::class, 'majorInsights'])->name('majors.insights');
 });

@@ -7,7 +7,6 @@ use App\Models\Majors;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Laravel\Ai\Facades\AI;
 
 class MajorController extends Controller
 {
@@ -87,14 +86,13 @@ class MajorController extends Controller
 
         try {
             // Mengirim data ke Agent AI untuk mendapatkan insight analitis
-            $insight = AI::agent(AgenKuliah::class)
-                ->prompt(
-                    "Berikut adalah data statistik pada {$dataTeks}.\n"
-                    . "Tolong berikan:\n"
-                    . "1. Deskripsi singkat kondisi jurusan.\n"
-                    . "2. Evaluasi akademik.\n"
-                    . "3. Kritik dan saran untuk dosen."
-                );
+            $insight = AgenKuliah::make()->prompt(
+                "Berikut adalah data statistik pada {$dataTeks}.\n"
+                . "Tolong berikan:\n"
+                . "1. Deskripsi singkat kondisi jurusan.\n"
+                . "2. Evaluasi akademik.\n"
+                . "3. Kritik dan saran untuk dosen."
+            );
         } catch (\Exception $e) {
             $insight = "Gagal mengambil analisis AI. Error: " . $e->getMessage();
         }

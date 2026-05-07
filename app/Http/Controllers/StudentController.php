@@ -7,7 +7,6 @@ use App\Models\Student;
 use App\Models\Majors;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Laravel\Ai\Facades\AI;
 
 class StudentController extends Controller
 {
@@ -139,14 +138,13 @@ class StudentController extends Controller
 
         try {
             // Memanggil Agent AI untuk memberikan analisis
-            $response = AI::agent(AgenKuliah::class)
-                ->prompt(
-                    "Berikan analisis terkait peluang karir " .
-                    "dan saran akademik untuk mahasiswa bernama " .
-                    "{$student->name} dari jurusan {$student->majors->name}. " .
-                    "tidak perlu berikan pertanyaan lain, hanya berikan " .
-                    "analisis berdasarkan data yang saya berikan."
-                );
+            $response = AgenKuliah::make()->prompt(
+                "Berikan analisis terkait peluang karir " .
+                "dan saran akademik untuk mahasiswa bernama " .
+                "{$student->name} dari jurusan {$student->majors->name}. " .
+                "tidak perlu berikan pertanyaan lain, hanya berikan " .
+                "analisis berdasarkan data yang saya berikan."
+            );
         } catch (\Exception $e) {
             $response = "Gagal mengambil analisis AI. Error: " . $e->getMessage();
         }
